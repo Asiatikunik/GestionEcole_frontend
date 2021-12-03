@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.isty.gestionecole.controleurs.CreneauTabController" > 
+	<VBox spacing="25.0" style="-fx-padding: 30 0 0 10;">
+		<VBox spacing="10.0">
+			<Label text="Création d'un nouveau creneau :"/>
+						
+			<DatePicker fx:id="date" />
+			<HBox alignment="CENTER_LEFT" spacing="15.0">
+				<Label text="Heure de début :"/>
+				<ChoiceBox fx:id="heureDebut" prefHeight="26.0" prefWidth="80">
+					<items>
+						<FXCollections fx:factory="observableArrayList">           
+				            <String fx:value="08:00" />               
+				            <String fx:value="09:00" />               
+				            <String fx:value="10:00" />            
+				            <String fx:value="11:00" />            
+				            <String fx:value="12:00" />             
+				            <String fx:value="13:00" />            
+				            <String fx:value="14:00" />            
+				            <String fx:value="15:00" />             
+				            <String fx:value="16:00" />            
+				            <String fx:value="17:00" />            
+				            <String fx:value="18:00" />
+		            	</FXCollections>
+	            	</items>
+	        	</ChoiceBox>
+			</HBox>
+			<HBox alignment="CENTER_LEFT" spacing="15.0">
+				<Label text="Heure de fin :"/>
+				<ChoiceBox fx:id="heureFin" prefHeight="26.0" prefWidth="80">
+					<items>
+						<FXCollections fx:factory="observableArrayList">           
+				            <String fx:value="08:00" />               
+				            <String fx:value="09:00" />               
+				            <String fx:value="10:00" />            
+				            <String fx:value="11:00" />            
+				            <String fx:value="12:00" />             
+				            <String fx:value="13:00" />            
+				            <String fx:value="14:00" />            
+				            <String fx:value="15:00" />             
+				            <String fx:value="16:00" />            
+				            <String fx:value="17:00" />            
+				            <String fx:value="18:00" />
+		            	</FXCollections>
+	            	</items>
+	        	</ChoiceBox>
+			</HBox>
+			<Button mnemonicParsing="false" onAction="#creer" text="Creer" />
+		</VBox>
+		<VBox spacing="10.0">
+			<Label text="Liste des creneaux :"/>
+		    <ListView fx:id="listViewCreneau" layoutX="0" layoutY="30" prefWidth="300" prefHeight="250">
+				
+			</ListView>
+			<Button mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
+		</VBox>
+	</VBox>
+</AnchorPane>
+

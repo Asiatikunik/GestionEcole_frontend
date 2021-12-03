@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="550" prefWidth="440" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="fr.uvsq.isty.gestionecole.MainApp" >
+    <children>
+    <TabPane tabClosingPolicy="UNAVAILABLE">
+    
+    	<Tab fx:id="UE" text=" Unité d'enseignement ">
+     		<fx:include source="UETab.fxml"/>    	 
+    	</Tab>
+    	
+    	<Tab fx:id="Creneau" text=" Créneau ">
+     		<fx:include source="CreneauTab.fxml"/>    	 
+    	
+    	</Tab>
+    	<Tab fx:id="Promotion" text=" Promotion " >
+     		<fx:include source="PromotionTab.fxml"/>    	 
+    	
+    	</Tab>
+    	<Tab fx:id="Session" text=" Session ">
+     		<fx:include source="SessionTab.fxml"/>
+    	
+    	</Tab>
+    </TabPane>
+    </children>
+</AnchorPane>
+
+

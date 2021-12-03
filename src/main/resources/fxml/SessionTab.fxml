@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.isty.gestionecole.controleurs.SessionTabController" > 
+	<VBox spacing="25.0" style="-fx-padding: 30 0 0 10;">
+		<VBox spacing="10.0">
+			<Label text="Création d'une nouvelle session :"/>
+			<HBox alignment="CENTER" spacing="15.0">
+			
+				<VBox alignment="CENTER" spacing="15.0">
+					<Label text="Unité d'enseignement"/>
+					<ListView fx:id="ListViewUE" layoutX="0" layoutY="30" prefWidth="120" prefHeight="100">
+					
+					</ListView>
+				</VBox>
+				
+				<VBox alignment="CENTER" spacing="15.0">
+					<Label text="Creneau"/>
+					<ListView fx:id="ListViewCreneau" layoutX="0" layoutY="30" prefWidth="120" prefHeight="100">
+
+					</ListView>
+				</VBox>
+				
+				<VBox alignment="CENTER" spacing="15.0">
+					<Label text="Promotion"/>
+					<ListView fx:id="ListViewPromotion" layoutX="0" layoutY="30" prefWidth="120" prefHeight="100">
+
+					</ListView>
+					
+				</VBox>
+				
+				
+				
+			</HBox>	
+			<Button mnemonicParsing="false" onAction="#creer" text="Creer" />
+			
+			
+		</VBox>
+		<VBox spacing="10.0">
+			<HBox spacing="15.0">
+				<VBox spacing="15.0">
+					<Label text="Liste des sessions existante :"/>
+				    <ListView fx:id="ListViewSession" layoutX="0" layoutY="30" prefWidth="180" prefHeight="180">
+					</ListView>
+				</VBox>
+				<VBox spacing="15.0">
+					<Label text="Nouveau creneau :"/>
+				    <ListView fx:id="ListViewCreneauModify" layoutX="0" layoutY="30" prefWidth="180" prefHeight="180">		    
+					</ListView>
+				</VBox>
+			</HBox>
+			<HBox spacing="15.0">
+				<VBox spacing="15.0">
+					<HBox alignment="CENTER_LEFT" spacing="15.0">
+						<Button mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
+						<Button mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+						<Button mnemonicParsing="false" onAction="#rafraichir" text="Rafraichir" />
+					</HBox>
+				</VBox>
+			</HBox>
+		</VBox>
+	</VBox>
+</AnchorPane>
+

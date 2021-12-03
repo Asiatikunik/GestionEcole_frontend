@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.isty.gestionecole.controleurs.PromotionTabController" > 
+	<VBox spacing="25.0" style="-fx-padding: 30 0 0 10;">
+		<VBox spacing="10.0">
+			<Label text="Création d'une nouvelle promotion :"/>
+			<HBox alignment="CENTER_LEFT" spacing="15.0">
+				<Label text="Nom"/>
+				<TextField fx:id="textFieldNom"/>
+			</HBox>
+			<HBox alignment="CENTER_LEFT" spacing="15.0">
+				<Label text="Année diplome"/>
+				<TextField fx:id="textFieldAnnee"/>
+			</HBox>
+			<Button mnemonicParsing="false" onAction="#creer" text="Creer" />
+		</VBox>
+		<VBox spacing="10.0">
+			<Label text="Liste des promotions :"/>
+		    <ListView fx:id="listViewPromotion" layoutX="0" layoutY="30" prefWidth="300" prefHeight="250">
+				
+			</ListView>
+			<Button mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
+		</VBox>
+	</VBox>
+</AnchorPane>
+
+

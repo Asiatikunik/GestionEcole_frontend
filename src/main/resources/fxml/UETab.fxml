@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import fr.uvsq.isty.gestionecole.modeles.UniteEnseignement?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.uvsq.isty.gestionecole.controleurs.UETabController" > 
+	<VBox spacing="25.0" style="-fx-padding: 30 0 0 10;">
+		<VBox spacing="10.0">
+			<Label text="Création d'une nouvelle unité d'enseignement :"/>
+			<HBox alignment="CENTER_LEFT" spacing="15.0">
+				<Label text="Nom"/>
+				<TextField fx:id="textFieldNom"/>
+			</HBox>
+			<HBox alignment="CENTER_LEFT" spacing="15.0">
+				<Label text="Sigle"/>
+				<TextField fx:id="textFieldSigle"/>
+			</HBox>
+			<Button mnemonicParsing="false" onAction="#creer" text="Creer" />
+		</VBox>
+		<VBox spacing="10.0">
+			<Label text="Liste des unités d'enseignement existante :"/>
+		    <ListView fx:id="listViewUE" layoutX="0" layoutY="30" prefWidth="300" prefHeight="250">
+			</ListView>
+			<Button mnemonicParsing="false" onAction="#supprimer" text="Supprimer" />
+		</VBox>
+	</VBox>
+</AnchorPane>
+
