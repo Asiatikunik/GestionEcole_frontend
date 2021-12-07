@@ -1,6 +1,11 @@
 package fr.uvsq.isty.gestionecole.controleurs;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -67,7 +72,7 @@ public class CreneauTabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void creer(ActionEvent event) throws IOException  {
+	public void creer(ActionEvent event) throws IOException, InterruptedException, URISyntaxException {
 		// Récupération des valeurs saisies dans la vue
 		LocalDate dateCreneau = this.date.getValue();
 		String hDebut = this.heureDebut.getValue();
@@ -86,6 +91,24 @@ public class CreneauTabController implements Controller {
 			LocalTime fin = LocalTime.parse(hFin);
 			
 			Creneau c = new Creneau(dateCreneau, debut, fin);
+
+			String lien = "http://localhost:8082/creneau";
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.POST(HttpRequest.BodyPublishers.ofString(
+							"{ " +
+									"\"date\": \""+ dateCreneau +"\" , " +
+									"\"debut\": \""+ hDebut +"\" , " +
+									"\"fin\": \""+ hFin +
+									"\"}"
+					))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
+
+
 			// Ajout du nouveau créneau dans le modèle
 			this.ecole.addCreneau(c);
 			

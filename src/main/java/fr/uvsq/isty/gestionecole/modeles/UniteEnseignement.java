@@ -7,10 +7,9 @@ package fr.uvsq.isty.gestionecole.modeles;
  *
  */
 public class UniteEnseignement {
-	//le sigle
-	String sigle;
-	//le nom
-	String nom;
+
+	String sigle; //le sigle
+	String nom; //le nom
 	
 	/**
 	 * Construit une UE
@@ -18,7 +17,6 @@ public class UniteEnseignement {
 	 * @param nom : le nom
 	 */
 	public UniteEnseignement(String sigle, String nom) {
-		super();
 		this.sigle = sigle;
 		this.nom = nom;
 	}
@@ -27,7 +25,6 @@ public class UniteEnseignement {
 	 * Construit une UE vide
 	 */
 	public UniteEnseignement() {
-		super();
 	}
 
 	/**

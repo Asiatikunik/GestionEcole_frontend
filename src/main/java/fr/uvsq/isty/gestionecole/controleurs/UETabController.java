@@ -1,6 +1,12 @@
 package fr.uvsq.isty.gestionecole.controleurs;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +33,7 @@ public class UETabController implements Controller {
 	
 	private Ecole ecole;
 	
-		//Ajout des listes nécessaires à mettre à jour via le FXML
+	//Ajout des listes nécessaires à mettre à jour via le FXML
 	@FXML
 	ListView<Label> listViewUE;
 	@FXML
@@ -35,7 +41,7 @@ public class UETabController implements Controller {
 	@FXML
 	TextField textFieldSigle;
 
-	
+
 	/**
 	 * Construit une instance d'UniteEnseignement avec le modèle
 	 * @param ecole : le modèle à inclure dans la nouvelle instance
@@ -62,7 +68,7 @@ public class UETabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void creer(ActionEvent event) throws IOException {
+	public void creer(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
 		//on recupere le nom et sigle entree par l'utilisateur
 		String sigle = textFieldSigle.getText();
 		String nom = textFieldNom.getText();
@@ -76,6 +82,17 @@ public class UETabController implements Controller {
 			alert.showAndWait();
 			//Sinon on creer l'UE et on l'ajoute a l'ecole puis on actualise
 		} else {
+
+			String lien = "http://localhost:8082/ue";
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.POST(HttpRequest.BodyPublishers.ofString("{ \"sigle\": \""+ sigle +"\" , \"nom\": \""+ nom +"\"}"))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
+
 			this.ecole.addUniteEnseignement(ue);
 			this.textFieldSigle.setText("");
 			this.textFieldNom.setText("");

@@ -1,6 +1,11 @@
 package fr.uvsq.isty.gestionecole.controleurs;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 import fr.uvsq.isty.gestionecole.modeles.Ecole;
 import fr.uvsq.isty.gestionecole.modeles.Promotion;
@@ -53,7 +58,7 @@ public class PromotionTabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void creer(ActionEvent event) throws IOException  {
+	public void creer(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
 		// Récupération des valeurs saisies dans la vue
 		String nomPromotion = textFieldNom.getText();
 		String anneePromotion = textFieldAnnee.getText();
@@ -67,6 +72,18 @@ public class PromotionTabController implements Controller {
 		}
 		else {
 			Promotion prom = new Promotion(Integer.parseInt(anneePromotion), nomPromotion);
+
+			String lien = "http://localhost:8082/promotion";
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.POST(HttpRequest.BodyPublishers.ofString("{ \"nom\": \""+ nomPromotion +"\" , \"anneeDiplome\": \""+ anneePromotion +"\"}"))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
+
+
 			// Ajout de la nouvelle promotion au modèle
 			this.ecole.addPromotion(prom);
 			

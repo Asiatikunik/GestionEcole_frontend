@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.spi.AbstractResourceBundleProvider;
 
+
 import fr.uvsq.isty.gestionecole.controleurs.*;
 import fr.uvsq.isty.gestionecole.modeles.Creneau;
 import fr.uvsq.isty.gestionecole.modeles.Ecole;
@@ -65,15 +66,12 @@ public class MainApp extends Application {
     		try {
     			reader = new BufferedReader(new FileReader("ecole.json"));
     			this.model = gson.fromJson(reader, Ecole.class);
-    		}
-    		catch (FileSystemNotFoundException e) {
+    		} catch (FileSystemNotFoundException e) {
 				e.printStackTrace();
-			}
-    		finally {
+			} finally {
 				try {
 					reader.close();
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}

@@ -180,6 +180,10 @@ public class Ecole {
 	public void addUniteEnseignement(UniteEnseignement ue) {
 		this.unitesEnseignement.add(ue);
 	}
+
+//	public void addUniteEnseignement2(UniteEnseignement ue) {
+//
+//	}
 	
 	/**
 	 * Retire une UE de l'ensemble des UE

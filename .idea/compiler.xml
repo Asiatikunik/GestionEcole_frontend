@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="GestionEcole_frontend" />
         <module name="gestionecole" />
         <module name="GestionEcole" />
         <module name="GestionEcole - front end" />
