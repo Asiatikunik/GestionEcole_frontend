@@ -150,7 +150,7 @@ public class CreneauTabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void supprimer(ActionEvent event) throws IOException  {
+	public void supprimer(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
 		// Récupération de l'élément sélectionné
 		HBox box = this.listViewCreneau.getSelectionModel().getSelectedItem();
 		
@@ -165,6 +165,16 @@ public class CreneauTabController implements Controller {
 			// Réinitialisation de la vue
 			this.listViewCreneau.getItems().clear();
 			this.ecole.getCreneaux().forEach(c -> this.ajouterCreneauListe(c));
+
+			String lien = "http://localhost:8082/creneau";
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.method("DELETE",HttpRequest.BodyPublishers.ofString(creneau.getText()))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
 		}
 		else {
 			/* Affichage d'une boîte d'alerte en cas de tentative de suppression

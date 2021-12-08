@@ -138,9 +138,6 @@ public class PromotionTabController implements Controller {
 
 			this.listViewPromotion.getItems().clear();
 			this.ecole.getPromotions().forEach(p -> this.ajouterPromotionListe(p));
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
 
 			String lien = "http://localhost:8082/promotion";
 			HttpClient client = HttpClient.newHttpClient();

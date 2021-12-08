@@ -90,7 +90,7 @@ public class Creneau {
 	}
 	
 	public String toString() {
-		return this.date.toString() +  " -- " + this.debut.toString() + " - " + this.fin.toString();
+		return "{\"date\":\""+this.date.toString()+"\",\"debut\": \""+ this.debut.toString()+"\",\"fin\": \""+ this.fin.toString() +"\"}";
 	}
 	
 
