@@ -1,6 +1,11 @@
 package fr.uvsq.isty.gestionecole.controleurs;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -129,7 +134,7 @@ public class SessionTabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void creer(ActionEvent event) throws IOException  {
+	public void creer(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
 		//On récupère les textes de l'ue , du creneau et de la promotion sélectionner
 		
 		if(this.ListViewUE.getSelectionModel().getSelectedItem() == null)	{
@@ -137,25 +142,21 @@ public class SessionTabController implements Controller {
 			alert.setHeaderText(null);
 			alert.setContentText("Selectionner une unite d'enseignement, un creneau et une promotion!");
 			alert.showAndWait();
-			
-		} 
-		else if(this.ListViewCreneau.getSelectionModel().getSelectedItem() == null){
+		} else if(this.ListViewCreneau.getSelectionModel().getSelectedItem() == null){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setContentText("Selectionner une unite d'enseignement, un creneau et une promotion!");
 			alert.showAndWait();
-		}
-		else if(this.ListViewPromotion.getSelectionModel().getSelectedItem() == null) {
+		} else if(this.ListViewPromotion.getSelectionModel().getSelectedItem() == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText(null);
 			alert.setContentText("Selectionner une unite d'enseignement, un creneau et une promotion!");
 			alert.showAndWait();
-		}
-		else {
+		} else {
 			String ueNom = this.ListViewUE.getSelectionModel().getSelectedItem().getText();
+			String promotion = this.ListViewPromotion.getSelectionModel().getSelectedItem().getText();
 			List<Label> creneau = this.ListViewCreneau.getSelectionModel().getSelectedItems();
-			String promotion = this.ListViewPromotion.getSelectionModel().getSelectedItem().getText();	
-		
+
 			//On retrouve l'objet ue en question
 			UniteEnseignement unite = this.ecole.getUEByNom(ueNom);
 			
@@ -175,6 +176,32 @@ public class SessionTabController implements Controller {
 						new Label(session.getCreneau().toString())
 						);
 			}
+
+			String lien = "http://localhost:8082/session";
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.POST(HttpRequest.BodyPublishers.ofString(
+							"{ " +
+									"\"uniteEnseigment\": {" +
+										"\"sigle\": \""+ unite.getSigle() +"\", " +
+										"\"nom\": \""+ unite.getNom() + "\" " +
+									"}, "+
+									"\"promotion\": {" +
+										"\"anneeDiplome\": \""+ p.getAnneeDiplome() +"\", " +
+										"\"nom\": \""+ p.getNom() + "\" " +
+									"}, "+
+									"\"creneau\": {" +
+										"\"date\": \""+ cre.get(cre.size()-1).getDate() +"\" , " +
+										"\"debut\": \""+ cre.get(cre.size()-1).getDebut() +"\" , " +
+										"\"fin\": \""+ cre.get(cre.size()-1).getFin() + "\" " +
+									"} "+
+							"}"
+					))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
 		}
 	}
 

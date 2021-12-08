@@ -108,7 +108,7 @@ public class UETabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void supprimer(ActionEvent event) throws IOException  {
+	public void supprimer(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
 		Label label = this.listViewUE.getSelectionModel().getSelectedItem();
 		//On prend les UE et on compare avec la sélection pour supprimer
 		if (label != null) {
@@ -122,6 +122,20 @@ public class UETabController implements Controller {
 				labels.add(new Label(ue.toDisplay()));
 			}
 			this.listViewUE.getItems().setAll(labels);
+
+			System.out.println("label: " + label.getText());
+
+			String lien = "http://localhost:8082/ue/" + label.getText();
+			System.out.println(lien);
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.POST(HttpRequest.BodyPublishers.ofString("{ \"sigle\": \""+  label.getText() +"\"}"))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
+
 		} else {
 			// Boite d'alerte si aucun élément n'est sélectionné
 			Alert alert = new Alert(AlertType.ERROR);
