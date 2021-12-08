@@ -131,7 +131,7 @@ public class UETabController implements Controller {
 			HttpRequest request = HttpRequest.newBuilder()
 					.uri(new URI(lien))
 					.headers("Content-Type", "application/json")
-					.POST(HttpRequest.BodyPublishers.ofString("{ \"sigle\": \""+  label.getText() +"\"}"))
+					.DELETE()
 					.build();
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 			System.out.println(response.body());

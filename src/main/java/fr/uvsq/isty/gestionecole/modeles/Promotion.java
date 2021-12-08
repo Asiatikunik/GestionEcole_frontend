@@ -64,7 +64,7 @@ public class Promotion {
 	}
 	
 	public String toString() {
-		return this.nom +  " - " + this.anneeDiplome;
+		return "{\"anneeDiplome\":"+this.anneeDiplome+",\"nom\":\""+this.nom+"\"}";
 	}
 	
 }

@@ -6,7 +6,9 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.uvsq.isty.gestionecole.modeles.Ecole;
 import fr.uvsq.isty.gestionecole.modeles.Promotion;
 import javafx.event.ActionEvent;
@@ -121,7 +123,7 @@ public class PromotionTabController implements Controller {
 	 */
 	@Override
 	@FXML
-	public void supprimer(ActionEvent event) throws IOException  {
+	public void supprimer(ActionEvent event) throws IOException, URISyntaxException, InterruptedException {
 		// Récupération de l'élément sélectionné
 		HBox box = this.listViewPromotion.getSelectionModel().getSelectedItem();
 		
@@ -133,8 +135,24 @@ public class PromotionTabController implements Controller {
 			// Suppression de la promotion dans le modèle
 			this.ecole.getPromotions().removeIf(p -> p.toString().equals(promotion.getText()));
 			// Réinitialisation de la vue
+
 			this.listViewPromotion.getItems().clear();
 			this.ecole.getPromotions().forEach(p -> this.ajouterPromotionListe(p));
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+
+			String lien = "http://localhost:8082/promotion";
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(new URI(lien))
+					.headers("Content-Type", "application/json")
+					.method("DELETE",HttpRequest.BodyPublishers.ofString(promotion.getText()))
+					.build();
+			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
+
+
 		}
 		else {
 			/* Affichage d'une boîte d'alerte en cas de tentative de suppression
